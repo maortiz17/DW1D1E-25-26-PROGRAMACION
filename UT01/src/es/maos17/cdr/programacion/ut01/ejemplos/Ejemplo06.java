@@ -7,6 +7,7 @@ public class Ejemplo06 {
 		System.out.println(5 / 2);
 		System.out.println(5F / 2F);
 		System.out.println(5.0 / 2);
+		System.out.println(5 / 2.0);
 		
 		float numeroReal = 5.0F;
 	}
