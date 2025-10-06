@@ -24,7 +24,8 @@ y calcule su perímetro y su área. */
 		
 		// Calculamos datos de salida
 		area = base * altura;
-		perimetro = (2 * base) + (2 * altura);
+		// perimetro = (2 * base) + (2 * altura);
+		perimetro = 2 * (base + altura);
 		
 		// Generamos salida solicitada
 		System.out.printf("El área del rectángulo es: %d\n", area);

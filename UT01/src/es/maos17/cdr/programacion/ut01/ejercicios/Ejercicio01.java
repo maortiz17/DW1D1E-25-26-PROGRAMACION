@@ -3,6 +3,21 @@ package es.maos17.cdr.programacion.ut01.ejercicios;
 public class Ejercicio01 {
 
 	public static void main(String[] args) {
+		int numeroEntero = 12;
+		double numeroDecimal = 423.323;
+		String nombre = "Miguel";
+		boolean esEstudiante = false;
+
+		double resultado = numeroEntero * numeroDecimal;
+
+		System.out.println("Valor de numeroEntero: " + numeroEntero);
+
+		System.out.println("Valores de dos numeros: " + (4 + 7));
+
+		System.out.println("Valor de numeroDecimal: " + numeroDecimal);
+		
+		System.out.println("Valor de esEstudiante: " + esEstudiante);
+		
 		/* Utiliza el operador ternario para determinar el mayor de dos
 		números enteros. Si son iguales hay que indicarlo.*/
 		int num1 = 100;
