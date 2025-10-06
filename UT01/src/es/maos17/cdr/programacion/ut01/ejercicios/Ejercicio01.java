@@ -1,6 +1,6 @@
 package es.maos17.cdr.programacion.ut01.ejercicios;
 
-public class Ejercicio1 {
+public class Ejercicio01 {
 
 	public static void main(String[] args) {
 		/* Utiliza el operador ternario para determinar el mayor de dos
