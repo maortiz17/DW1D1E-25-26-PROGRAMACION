@@ -2,7 +2,7 @@ package es.maos17.cdr.programacion.ut02.ejemplos;
 
 import java.util.Scanner;
 
-public class Ejemplo01While {
+public class Ejemplo07While {
 
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
