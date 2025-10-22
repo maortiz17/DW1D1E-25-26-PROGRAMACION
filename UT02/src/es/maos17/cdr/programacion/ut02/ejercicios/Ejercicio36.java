@@ -2,7 +2,7 @@ package es.maos17.cdr.programacion.ut02.ejercicios;
 
 import java.util.Scanner;
 
-public class Ejercicios36 {
+public class Ejercicio36 {
 /*
  * Escribe un programa que pida el límite inferior y superior de un intervalo (números enteros). 
  * Si el límite inferior es mayor que el superior lo tiene que volver a pedir, y seguir haciéndolo 
