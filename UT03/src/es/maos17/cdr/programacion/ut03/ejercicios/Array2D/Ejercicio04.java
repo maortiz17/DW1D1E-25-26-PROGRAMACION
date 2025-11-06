@@ -39,7 +39,7 @@ public class Ejercicio04 {
 		mostrarMatriz(matriz);
 	}
 	
-	public static void permutarFilas(int[][] array, int fila1, int fila2) {
+	private static void permutarFilas(int[][] array, int fila1, int fila2) {
 		int auxiliar; // para intercambio de valores
 		for (int i = 0; i < array[0].length; i++) {
 			// Intercambiamos valores de ambas filas uno a uno con ayuda de variable auxiliar
@@ -49,7 +49,7 @@ public class Ejercicio04 {
 		}
 	}
 	
-	public static void rellenarConAleatorios(int[][] array) {
+	private static void rellenarConAleatorios(int[][] array) {
 		Random aleatorio = new Random();
 		for (int i = 0; i < array.length; i++) {
 			for (int j = 0;j < array[i].length; j++) {
@@ -101,7 +101,7 @@ public class Ejercicio04 {
 	public static void mostrarMatriz(int[][] array) {
 		for (int i = 0; i < array.length; i++) {
 			for (int j = 0;j < array[i].length; j++) {
-				System.out.printf("%d, ", array[i][j]);
+				System.out.printf("%d ", array[i][j]);
 			}
 			System.out.println();
 		}
