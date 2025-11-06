@@ -2,7 +2,7 @@ package es.maos17.cdr.programacion.ut03.ejercicios.Array2D;
 
 import java.util.Scanner;
 
-public class Ejercicio03 {
+public class Ejercicio03B {
 
 	public static void main(String[] args) {
 
