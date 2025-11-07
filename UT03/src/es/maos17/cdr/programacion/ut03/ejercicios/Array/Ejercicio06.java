@@ -1,5 +1,12 @@
 package es.maos17.cdr.programacion.ut03.ejercicios.Array;
-
+/*
+ * Modifica el código del ejercicio 05 para que se usen estos métodos que debes implementar
+como métodos estáticos del programa principal:
+● Método buscaMaximo que recibe el array y que devuelve la posición en la que se
+encuentra el valor máximo.
+● Método buscaMinimo que recibe el array y que devuelve la posición en la que se
+encuentra el valor mínimo.
+ */
 import java.util.Scanner;
 
 public class Ejercicio06 {
@@ -27,7 +34,7 @@ public class Ejercicio06 {
 	 * Busca el valor máximo dentro de un array de enteros
 	 * 
 	 * @param numeros array en el que tenemos que localizar el máximo
-	 * @return la posición en la que se encuentra el mínimo
+	 * @return la posición en la que se encuentra el máximo
 	 */
 	public static int buscaMaximo(int[] numeros) {
 		int maximo = numeros[0];

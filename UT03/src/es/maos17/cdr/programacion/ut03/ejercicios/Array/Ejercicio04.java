@@ -1,5 +1,18 @@
 package es.maos17.cdr.programacion.ut03.ejercicios.Array;
-
+/*
+ * Escribe un programa que genere 100 números aleatorios menores que 100 (de 0 a 99), y
+los almacene en un array. Luego debe calcular la suma y la media de los números
+introducidos.
+Usa al menos los siguientes métodos:
+● generarNumeros. Hay dos opciones:
+○ Recibe un array de cierto tamaño y lo llena de números aleatorios.
+○ Recibe el tamaño del array que queremos crear, y devuelve un array, de ese
+tamaño, lleno de números aleatorios.
+● calcularSuma. Recibe el array de números y devuelve la suma de los números.
+● calcularMedia. Recibe el array de números y devuelve la media de los números.
+Recomendación: para simplificar este método, puedes llamar al método
+calcularSuma.
+ */
 import java.util.Random;
 
 public class Ejercicio04 {

@@ -28,7 +28,7 @@ public class Ejercicio09 {
 
 	private static void procesarNumeros(int[] numeros) {
 		for (int i = 0; i < numeros.length; i++) {
-			if (esPar(i)) {
+			if (esPar(numeros[i])) {
 				numeros[i] /= 2; // numeros[i] = numeros[i] / 2;
 			} else {
 				numeros[i] *= 2; // numeros[i] = numeros[i] * 2;

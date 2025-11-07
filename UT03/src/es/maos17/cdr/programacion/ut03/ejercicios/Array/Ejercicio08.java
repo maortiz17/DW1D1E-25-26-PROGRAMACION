@@ -74,6 +74,10 @@ public class Ejercicio08 {
 		if (numeros.length % 2 == 1) {
 			cantidadPares++;
 		}
+		// Si no hay números pares, la media es 0.
+		if (cantidadPares == 0) {
+			return 0.0;
+		}
 		double mediaPares = (double) sumaPares / cantidadPares;
 		return mediaPares;
 	}
@@ -87,13 +91,20 @@ public class Ejercicio08 {
 			suma += numeros[i];
 			cuenta++;
 		}
-
+		// Si no hay números pares, la media es 0.
+		if (cuenta == 0) {
+			return 0.0;
+		}
 		return (double) suma / cuenta;
 	}
 
 	private static double calcularMediaPosicionesImpares(int[] numeros) {
 		int sumaImpares = calcularSumaPosicionesImpares(numeros);
 		int cantidadImpares = numeros.length / 2;
+		// Si no hay números impares, la media es 0.
+		if (cantidadImpares == 0) {
+			return 0.0;
+		}
 		double mediaImpares = (double) sumaImpares / cantidadImpares;
 		return mediaImpares;
 	}

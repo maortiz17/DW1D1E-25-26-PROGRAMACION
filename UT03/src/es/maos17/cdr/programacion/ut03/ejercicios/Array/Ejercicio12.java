@@ -34,7 +34,7 @@ public class Ejercicio12 {
 
 		mostrarNumeros(numeros);
 
-		if (hayRepetidos(numeros)) {
+		if (hayRepetidos(numeros)) { // Comprobamos el resultado
 			System.out.println("Hay repetidos en el array");
 		} else {
 			System.out.println("No hay repetidos en el array");

@@ -73,7 +73,7 @@ public class Ejercicio11 {
 		Random rnd = new Random();
 		int[] numeros = new int[cantidadNumeros];
 		for (int i = 0; i < numeros.length; i++) {
-			numeros[i] = rnd.nextInt(MIN, MAX + 1);
+			numeros[i] = rnd.nextInt(minimo, maximo + 1);
 		}
 		return numeros;
 	}
