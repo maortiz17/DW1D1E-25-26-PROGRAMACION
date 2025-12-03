@@ -1,4 +1,4 @@
-package es.maos17.cdr.programacion.ut04.Ejemplos;
+package es.maos17.cdr.programacion.ut04.ejemplos.ejemplo02;
 /**
  * Ejemplo de clase Punto
  */
