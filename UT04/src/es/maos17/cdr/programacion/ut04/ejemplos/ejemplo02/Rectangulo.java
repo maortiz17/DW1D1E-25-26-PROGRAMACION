@@ -15,6 +15,7 @@ public class Rectangulo {
 	// Número de rectángulos
 	private static int numeroRectangulos;
 	// Getters y setters de los atributos
+	
 	public int getX1() {
 		return x1;
 	}
