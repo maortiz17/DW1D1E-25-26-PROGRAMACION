@@ -7,29 +7,7 @@ import es.maos17.cdr.programacion.ut07.ejercicios.ejercicio06.clases.Television;
 import es.maos17.cdr.programacion.ut07.ejercicios.ejercicio06.clases.Color;
 
 public class Programa {
-	public static void main(String[] args) {
-
-//		Electrodomestico e1 = new Electrodomestico(20, 0.5);
-//		muestraPesoElectrodomestico(e1);
-//		Lavadora l1 = new Lavadora(100, 40);
-//		System.out.println(l1.getCarga());
-//		Electrodomestico e2 = l1;
-//		
-//		Lavadora l2 = (Lavadora) e2;
-//		System.out.println("Carga de la lavadora l2: " + l2.getCarga());
-//		
-//		Television t1 = new Television();
-//		Electrodomestico e3 = t1;
-//		Lavadora l3 = (Lavadora) e3;
-//		Object o1 = l3;
-//		
-//		Scanner s = (Scanner)o1;
-//		
-//		System.out.printf("Referencias de l1 y e2: %s y %s\n", l1, e2);
-////		System.out.println(e2.getCarga());
-//		muestraPesoElectrodomestico(l1);
-
-		Electrodomestico[] electrodomesticos = new Electrodomestico[10];
+	public static void main(String[] args) {Electrodomestico[] electrodomesticos = new Electrodomestico[10];
 
 		electrodomesticos[0] = new Lavadora(230, Color.INOX, Consumo.C, 40, 7);
 		electrodomesticos[1] = new Television(280, Color.NEGRO, Consumo.A, 17, 55, true);
@@ -111,9 +89,6 @@ public class Programa {
 				System.out.printf("Precio de la tv con %d pulgadas: %.2f \n", tv.getResolucionPulgadas(),
 						electrodomestico.getPrecioFinal());
 			}
-//			if (Electrodomestico.class.isInstance(electrodomestico)) {
-//				System.out.println("No es lavadora ni television");
-//			}
 
 			if (electrodomestico.getClass().equals(Electrodomestico.class)) {
 				System.out.println("No es lavadora ni television");
