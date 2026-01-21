@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class Programa {
 
 	public static void main(String[] args) {
-		// Dependencia de la clase java.util.Scanner, porque creamos un objeto de esa
+		// Dependencia de la clase java.util.Scanner, porque creamos un objeto de esa 
 		// clase. Dependencia de la clase java.io.InputStream, porque usamos System.in,
 		// que es un objeto de esa clase. Dependencia de la clase java.lang.System,
 		// porque usamos un atributo estático de esta clase (System.in).
