@@ -1,5 +1,6 @@
 package es.maos17.cdr.programacion.ut07.ejemplos.ejemplo05herencia.ejemplo01;
 
+public class SubClase extends SuperClase {
 	public SubClase(int numero) {
 		super(numero);
 		System.out.println("En el constructor con 1 parámetro de la subclase.");
@@ -16,7 +17,7 @@ package es.maos17.cdr.programacion.ut07.ejemplos.ejemplo05herencia.ejemplo01;
 //		this.setNumero(num);
 //	}
 //	
-
+}
 
 
 
