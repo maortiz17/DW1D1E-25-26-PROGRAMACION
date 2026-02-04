@@ -1,0 +1,36 @@
+package es.maos17.cdr.programacion.ut07.ejercicios.ejercicio20.clases;
+
+public abstract class Paralelogramo extends Figura {
+	public static final int NUM_LADOS = 4;
+
+	// Atributos
+	private double base;
+	private double altura;
+	
+	// Constructor
+	public Paralelogramo(double base, double altura) {
+		super(NUM_LADOS);
+		this.base = base;
+		this.altura = altura;
+	}
+
+	// Implementamos aquí los métodos abstractos de la superclase
+	@Override
+	public double perimetro() {
+		return 2 * (base + altura);
+	}
+	@Override
+	public double area() {
+		return base * altura;
+	}
+	
+	protected double getBase() {
+		return base;
+	}
+	
+	 @Override
+	 public void escalar(double factor) {
+		 this.base *= factor;
+		 this.altura *= factor;
+	 }
+}

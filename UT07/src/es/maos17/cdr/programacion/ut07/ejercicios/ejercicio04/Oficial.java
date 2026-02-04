@@ -11,6 +11,6 @@ public class Oficial extends Operario {
 	
 	@Override
 	public String toString() {
-		return super.toString() + "-> Operario -> Oficial";
+		return super.toString() + " -> Oficial";
 	}
 }

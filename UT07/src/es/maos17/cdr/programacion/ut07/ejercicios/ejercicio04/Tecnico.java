@@ -12,6 +12,6 @@ public class Tecnico extends Operario {
 	
 	@Override
 	public String toString() {
-		return super.toString() + "-> Operario -> Tecnico";
+		return super.toString() + " -> Tecnico";
 	}
 }

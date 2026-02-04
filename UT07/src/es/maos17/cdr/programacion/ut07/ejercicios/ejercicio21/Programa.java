@@ -1,0 +1,116 @@
+package es.maos17.cdr.programacion.ut07.ejercicios.ejercicio21;
+
+import java.util.Random;
+import es.maos17.cdr.programacion.ut07.ejercicios.ejercicio20.clases.*;
+
+public class Programa {private static final int NUM_FIGURAS = 15;
+private static Random rnd = new Random();
+
+public static void main(String[] args) {
+
+	//Creamos "objetos" de tipo Escalable
+	Escalable[] figuras = new Escalable[NUM_FIGURAS];
+
+	for (int i = 0; i < figuras.length; i++) {
+		figuras[i] = crearFiguraAleatoria();
+	}
+	
+	// mostrarFiguras(figuras);
+	mostrarEscalablesQueSonFiguras(figuras);
+	mostrarEscalablesQueSonImagenes(figuras);
+
+	for (int i = 0; i < figuras.length; i++) {
+		Escalable figura = figuras[i];
+		double factor = rnd.nextDouble(0, 2);
+		System.out.printf("Escalando figura nº %d con factor %.2f\n", i + 1, factor);
+		figura.escalar(factor);
+	}
+
+	// mostrarFiguras(figuras);
+	mostrarEscalablesQueSonFiguras(figuras);
+	mostrarEscalablesQueSonImagenes(figuras);
+}
+
+private static Escalable crearFiguraAleatoria() {
+	switch (rnd.nextInt(9)) {
+	case 1:
+		return new Circulo(getDimensionAleatoria());
+	case 2:
+		return new Cuadrado(getDimensionAleatoria());
+	case 3:
+		return new Rectangulo(getDimensionAleatoria(), getDimensionAleatoria());
+	case 4:
+		return new Romboide(getDimensionAleatoria(), getDimensionAleatoria(), getDimensionAleatoria());
+	case 5:
+		return new Elipse(getDimensionAleatoria(), getDimensionAleatoria());
+	case 6:
+		return new PoligonoRegular(getDimensionAleatoria(), getDimensionAleatoria(), getDimensionAleatoria());
+	case 7:
+		return new Rombo(getDimensionAleatoria(), getDimensionAleatoria());
+	case 8:
+		return crearTrianguloAleatorio();
+	default:
+		return new Imagen(rnd.nextInt(2,11), rnd.nextInt(2, 11));
+	}
+}
+
+private static int getDimensionAleatoria() {
+	return rnd.nextInt(10) + 1;
+}
+
+private static Figura crearTrianguloAleatorio() {
+	int ladoA = getDimensionAleatoria();
+	int ladoB = getDimensionAleatoria();
+	int ladoC;
+	do {
+		ladoC = getDimensionAleatoria();
+	} while ((ladoA >= (ladoB + ladoC)) || (ladoB >= (ladoA + ladoC)) || (ladoC >= (ladoA + ladoB)));
+//	} while (!((ladoA < (ladoB + ladoC)) && (ladoB < (ladoA + ladoC)) && (ladoC < (ladoA + ladoB))));
+
+	return new Triangulo(ladoA, ladoB, ladoC);
+}
+
+private static String getTipoFigura(Figura f) {
+	if (f instanceof Circulo) {
+		return "Circulo";
+	}
+	if (f instanceof Cuadrado) {
+		return "Cuadrado";
+	}
+	if (f instanceof Rectangulo) {
+		return "Rectángulo";
+	}
+	if (f instanceof Romboide) {
+		return "Romboide";
+	}
+	if (f instanceof Elipse) {
+		return "Elipse";
+	}
+	if (f instanceof PoligonoRegular) {
+		return "Poligono regular";
+	}
+	if (f instanceof Rombo) {
+		return "Rombo";
+	}
+	return "Triángulo";
+}
+
+private static void mostrarEscalablesQueSonImagenes(Escalable[] figuras) {
+	for (int i = 0; i < figuras.length; i++) {
+		Escalable figura = figuras[i];
+		if (figura instanceof Imagen)
+			System.out.print("Imagen en posición " + (i + 1) + ":\n" + figura);
+	}
+}
+
+private static void mostrarEscalablesQueSonFiguras(Escalable[] figuras) {
+	for (int i = 0; i < figuras.length; i++) {
+		Escalable escalable = figuras[i];
+		if (escalable instanceof Figura) {
+			Figura figura = (Figura) escalable;
+			System.out.printf("La figura en la posición %d es '%s', su área es %.2f y su perímetro es %.2f\n",
+					i + 1, getTipoFigura(figura), figura.area(), figura.perimetro());
+		}
+	}
+}
+}
