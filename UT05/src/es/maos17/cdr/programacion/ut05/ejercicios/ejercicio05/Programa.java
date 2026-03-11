@@ -10,7 +10,7 @@ public class Programa {
 	private static final int CANTIDAD_NUMEROS = 10;
 	public static void main(String[] args) {
 		
-		//Listas minuendo
+		//Listas
 		List<Integer> listaMinuendo= generarLista();
 		List<Integer> listaSustraendo = generarLista();
 		List<Integer> listaDiferencia = restar(listaMinuendo, listaSustraendo);
