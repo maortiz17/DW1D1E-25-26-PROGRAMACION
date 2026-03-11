@@ -8,8 +8,8 @@ import java.util.ListIterator;
 import java.util.Random;
 
 public class Programa {
-	private static final int LIMITE_NUMEROS = 10;
-	private static final int CANTIDAD_NUMEROS = 20;
+	private static final int LIMITE_NUMEROS = 25;
+	private static final int CANTIDAD_NUMEROS = 100;
 
 	public static void main(String[] args) {
 		Random rnd = new Random();
