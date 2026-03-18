@@ -1,6 +1,12 @@
 package es.maos17.cdr.programacion.ut05.ejercicios.ejercicio17;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.PriorityQueue;
+import java.util.Scanner;
 
 public class Programa {
     private static Scanner sc = new Scanner(System.in);

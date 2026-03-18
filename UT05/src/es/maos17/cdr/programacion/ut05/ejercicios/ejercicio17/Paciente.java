@@ -33,7 +33,7 @@ public class Paciente implements Comparable<Paciente> {
         return res;
     }
 
-    // Getters necesarios
+    // Getters 
     public String getDni() { 
     	return dni; 
     }
