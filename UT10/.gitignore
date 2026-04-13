@@ -1,0 +1,14 @@
+/target/
+# --- Eclipse ---
+# Archivos de configuración del proyecto específicos de Eclipse
+.settings/
+.project
+.classpath
+
+# --- Sistema Operativo ---
+.DS_Store
+Thumbs.db
+
+# --- Logs y temporales ---
+*.log
+temp/
