@@ -19,44 +19,43 @@ public class Ejercicio06 {
             where customer_id = ?
             """;
 
-
-
-
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
 
-        System.out.print("Dime el id del cliente: ");
+        System.out.print("Introduce el id del cliente: ");
         int idCliente = Integer.parseInt(sc.nextLine());
 
         // 1.- Obtener conexión. Hay que poner el catch porque lanza checked exception
         try (Connection connection = DriverManager.getConnection(CONNECTION_STRING, USER, PASS)) {
             // 2.- Preparar sentencia SQL. Recibe la query con las interrogaciones
-            try (PreparedStatement ps = connection.prepareStatement(QUERY_CLIENTE)) {
+            try (PreparedStatement pstmt = connection.prepareStatement(QUERY_CLIENTE)) {
                 // 3.- Parametrizar sentencia (cambiar las ? por valores)
-                ps.setInt(1, idCliente);
+                pstmt.setInt(1, idCliente);
 
                 // 4.- Obtener resultados
-                try (ResultSet datos = ps.executeQuery()) {
+                try (ResultSet rs = pstmt.executeQuery()) {
                     // 5.- Recorrer resultados
                     // 5.1.- Mirar si hay resultados. next() devuelve true si hay datos.
-                    if (!datos.next()) {
+                    if (!rs.next()) {
                         System.out.printf("No se ha encontrado el cliente con id %d \n", idCliente);
                     }
                     else{
                         // 5.2. - Mostrar datos
-                        System.out.printf("Nombre: %s %s\n", datos.getString("first_name"), datos.getString( "last_name"));
+                        System.out.printf("Nombre: %s %s\n", rs.getString("first_name"), rs.getString( "last_name"));
                     }
                     // 5.1.B Otra forma de ver si hay datos
 //                    if (datos.isBeforeFirst()){
 //                        // True si hay datos.isBeforeFirst
 //                    }
                 }
-
+                
             }
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }finally {
+        	sc.close();
         }
         System.out.println("Fin del programa");
     }

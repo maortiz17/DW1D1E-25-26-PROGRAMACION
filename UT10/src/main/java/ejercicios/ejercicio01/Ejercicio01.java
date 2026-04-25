@@ -2,9 +2,9 @@ package ejercicios.ejercicio01;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 public class Ejercicio01 {
 
@@ -26,19 +26,19 @@ public class Ejercicio01 {
 
     public static void main(String[] args) {
 
-        try(Connection connection = DriverManager.getConnection(URL_CONEXION, USER, PASS)){
-            try (Statement statement = connection.createStatement()) {
-                try (ResultSet resultSet = statement.executeQuery(QUERY)) {
+        try(Connection con = DriverManager.getConnection(URL_CONEXION, USER, PASS)){
+            try (PreparedStatement pstmt = con.prepareStatement(QUERY)) {
+                try (ResultSet rs = pstmt.executeQuery()) {
 
-                    while(resultSet.next()){
+                    while(rs.next()){
                         // Evitar usar índice de columna:
                         //String title =  resultSet.getString(1);
-                        String title =  resultSet.getString("title");
-                        int year = resultSet.getInt("release_year");
-                        int languageId = resultSet.getInt("language_id");
-                        int originalLanguageId = resultSet.getInt("original_language_id");
-                        String rating = resultSet.getString("rating");
-                        String description = resultSet.getString("description");
+                        String title =  rs.getString("title");
+                        int year = rs.getInt("release_year");
+                        int languageId = rs.getInt("language_id");
+                        int originalLanguageId = rs.getInt("original_language_id");
+                        String rating = rs.getString("rating");
+                        String description = rs.getString("description");
 
                         System.out.printf("%s - %d - %d - %d - %s\n%s\n", title, year, languageId, originalLanguageId, rating, description);
                         System.out.println("_".repeat(100));
