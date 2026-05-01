@@ -11,15 +11,15 @@ import tarea.dao.IProductoDAO;
 import tarea.entities.Producto;
 
 public class ProductoDAOOracle implements IProductoDAO {
-    public Producto crear(Connection con, String barcode, String nombre, double precio) throws SQLException {
+    public Producto crear(Connection con, Producto p) throws SQLException {
         String query = "INSERT INTO producto (barcode, nombre, precio) VALUES (?, ?, ?)";
         String[] pk = {"id"};
         // En la llamada al método prepareStatement pasamos un Array con los campos que componen la PD de la tabla
         // Así tendremos disponible el método getGeneratedKeys con la PK generada en el INSERT
         try (PreparedStatement pstmt = con.prepareStatement(query, pk)) {
-            pstmt.setString(1, barcode);
-            pstmt.setString(2, nombre);
-            pstmt.setDouble(3, precio);
+            pstmt.setString(1, p.getBarcode());
+            pstmt.setString(2, p.getNombre());
+            pstmt.setDouble(3, p.getPrecio());
             
             int filasAfectadas = pstmt.executeUpdate();
 
@@ -27,7 +27,7 @@ public class ProductoDAOOracle implements IProductoDAO {
                 try (ResultSet generatedKeys = pstmt.getGeneratedKeys()) {
                     if (generatedKeys.next()) {
                         long id = generatedKeys.getLong(1);
-                        return new Producto(id, barcode, nombre, precio);
+                        return new Producto(id, p.getBarcode(), p.getNombre(), p.getPrecio());
                     }
                 }
             }
@@ -67,17 +67,17 @@ public class ProductoDAOOracle implements IProductoDAO {
         return productos;
     }
 
-    public Producto modificar(Connection con, long id, String barcode, String nombre, double precio) throws SQLException {
+    public Producto modificar(Connection con, Producto p) throws SQLException {
         String query = "UPDATE producto SET barcode = ?, nombre = ?, precio = ? WHERE id = ?";
         // Actualizamos el producto con el id recibido como parámetro con el resto de parámetros
         try(PreparedStatement pstmt = con.prepareStatement(query)){
-            pstmt.setString(1, barcode);
-            pstmt.setString(2, nombre);
-            pstmt.setDouble(3, precio);
-            pstmt.setLong(4, id);
+            pstmt.setString(1, p.getBarcode());
+            pstmt.setString(2, p.getNombre());
+            pstmt.setDouble(3, p.getPrecio());
+            pstmt.setLong(4, p.getId());
 
             if (pstmt.executeUpdate() > 0){
-                return new Producto(id, barcode, nombre, precio);
+                return new Producto(p.getId(), p.getBarcode(), p.getNombre(), p.getPrecio());
             }
         }
         return null;
@@ -93,4 +93,3 @@ public class ProductoDAOOracle implements IProductoDAO {
         }
     }
 }
-

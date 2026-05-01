@@ -16,6 +16,14 @@ public class Producto{
         this(barcode, nombre, precio);
         this.id = id;
     }
+    
+    // Constructor de copia. Para copias defensivas en otros objetos
+    public Producto(Producto p) {
+    	this.id = p.id;
+    	this.barcode = p.barcode;
+    	this.nombre = p.nombre;
+    	this.precio = p.precio;
+    }
 
     public long getId() {
         return id;
@@ -31,10 +39,6 @@ public class Producto{
 
     public double getPrecio() {
         return precio;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     @Override

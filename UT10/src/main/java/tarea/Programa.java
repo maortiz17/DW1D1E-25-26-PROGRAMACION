@@ -104,7 +104,7 @@ public class Programa {
         String nombre = Utilidades.leerCadena(sc, "Nombre del producto: ");
         Double precio = Utilidades.leerDoublePositivo(sc, "Precio del producto: ");
         try{
-            Producto p = productoDAO.crear(con, barcode, nombre, precio);
+            Producto p = productoDAO.crear(con, new Producto(barcode, nombre, precio));
             if (p != null){
                 System.out.println("Producto creado correctamente: " + p);
                 return;
@@ -136,7 +136,7 @@ public class Programa {
             if (precio == null){
                 precio = p.getPrecio();
             }
-            p = productoDAO.modificar(con, id, barcode, nombre, precio);
+            p = productoDAO.modificar(con, new Producto(id, barcode, nombre, precio));
             if (p != null){
                 System.out.println("Producto modificado correctamente: " + p);
                 return;
