@@ -87,7 +87,6 @@ public class CarniceriaManolo {
             case 7:
                 return true;
         }
-        ;
         return false;
     }
 
@@ -121,7 +120,6 @@ public class CarniceriaManolo {
             case 5:
                 return true;
         }
-        ;
         return false;
     }
 
@@ -149,7 +147,6 @@ public class CarniceriaManolo {
             case 5:
                 return true;
         }
-        ;
         return false;
     }
 
