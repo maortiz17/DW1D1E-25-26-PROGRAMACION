@@ -252,7 +252,7 @@ public class CarniceriaManolo {
     }
 
     private static void altaModifProducto() {
-        int codigo = UtilidadesTeclado.enteroRango("Intruduzca el código: ", 1, Integer.MAX_VALUE, sc);
+        int codigo = UtilidadesTeclado.enteroRango("Introduzca el código: ", 1, Integer.MAX_VALUE, sc);
         Producto producto = buscarProducto(codigo);
         if (producto != null) { // El producto existe
             int stock = UtilidadesTeclado.enteroRango("Introduzca nuevo stock: ", 0, Integer.MAX_VALUE, sc);

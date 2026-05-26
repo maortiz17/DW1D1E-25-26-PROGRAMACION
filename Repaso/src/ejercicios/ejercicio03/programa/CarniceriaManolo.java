@@ -1,4 +1,4 @@
-package ejercicios.ejercicio02.programa;
+package ejercicios.ejercicio03.programa;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -10,22 +10,23 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
 
-import ejercicios.ejercicio02.clases.Administrador;
-import ejercicios.ejercicio02.clases.Cliente;
-import ejercicios.ejercicio02.clases.Producto;
-import ejercicios.ejercicio02.clases.Usuario;
-import ejercicios.ejercicio02.utilidades.UtilidadesTeclado;
+import ejercicios.ejercicio03.clases.Administrador;
+import ejercicios.ejercicio03.clases.Cliente;
+import ejercicios.ejercicio03.clases.Producto;
+import ejercicios.ejercicio03.clases.Usuario;
+import ejercicios.ejercicio03.dao.impl.ProductoDAOImpl;
+import ejercicios.ejercicio03.utilidades.UtilidadesTeclado;
 
 public class CarniceriaManolo {
-	private static List<Producto> productos = new ArrayList<>();
+	// private static List<Producto> productos = new ArrayList<>();
 	private static List<Usuario> usuarios = new ArrayList<>();
 	private static Set<String> nombres = new HashSet<>();
 	private static double gananciaTotal = 0.0;
@@ -34,6 +35,7 @@ public class CarniceriaManolo {
 	private static final String FILE_GANANCIA = "ganancia.txt";
 	private static Scanner sc = new Scanner(System.in);
 	private static Usuario usuario = null;
+	private static ProductoDAOImpl pDAO = new ProductoDAOImpl();
 
 	public static void main(String[] args) {
 		inicializarAplicacion();
@@ -114,7 +116,6 @@ public class CarniceriaManolo {
 			} else {
 				System.out.println("No se pudo crear el nuevo usuario");
 			}
-			;
 			break;
 		case 4:
 			login();
@@ -164,13 +165,6 @@ public class CarniceriaManolo {
 				// Creamos un Set de nombres para agilizar búsquedas
 				for (Usuario u : usuarios) {
 					nombres.add(u.getNombre());
-				}
-
-				// Cargamos productos
-				try (ObjectInputStream oisP = new ObjectInputStream(new FileInputStream(FILE_PRODUCTOS))) {
-					productos = (List<Producto>) oisP.readObject();
-				} catch (IOException e) {
-					System.out.println("Error al acceder al archivo de productos");
 				}
 
 				// Cargamos ganancia
@@ -225,49 +219,66 @@ public class CarniceriaManolo {
 	}
 
 	private static void mostrarProductos() {
-		if (productos.size() == 0) {
-			System.out.println("Lista de productos vacía");
-			return;
-		}
-		for (Producto p : productos) {
-			System.out.println(p);
+		try {
+			List<Producto> productos = pDAO.obtenerTodos();
+			if (productos.size() == 0) {
+				System.out.println("Lista de productos vacía");
+				return;
+			}
+			for (Producto p : productos) {
+				System.out.println(p);
+			}
+		} catch (SQLException e) {
+			System.out.println("Error al acceder a la DB: " + e.getMessage());
 		}
 	}
 
 	private static void mostrarProducto() {
-		String texto = UtilidadesTeclado.cadena("Introduzca código o texto a buscar: ", sc).toLowerCase();
-		boolean encontrado = false;
-		for (Producto p : productos) {
-			if (p.getDescripcion().toLowerCase().contains(texto) || Integer.toString(p.getCodigo()).equals(texto)) {
-				System.out.println(p);
-				encontrado = true;
+		try {
+			String texto = UtilidadesTeclado.cadena("Introduzca código o texto a buscar: ", sc).toLowerCase();
+
+			List<Producto> productos = pDAO.buscarProductos(texto);
+			if (productos.size() == 0) {
+				System.out.println("No se encontró ningún producto");
+				return;
 			}
-		}
-		if (!encontrado) {
-			System.out.println("Producto no encontrado");
+			for (Producto p : productos) {
+				System.out.println(p);
+			}
+		} catch (SQLException e) {
+			System.out.println("Error al acceder a la DB: " + e.getMessage());
 		}
 	}
 
-	private static Producto buscarProducto(int codigo) {
-		for (Producto p : productos) {
-			if (p.getCodigo() == codigo) {
-				return p;
-			}
-		}
-		return null;
-	}
+	/*
+	 * private static Producto buscarProducto(int codigo) { for (Producto p :
+	 * productos) { if (p.getCodigo() == codigo) { return p; } } return null; }
+	 */
 
 	private static void altaModifProducto() {
 		int codigo = UtilidadesTeclado.enteroRango("Introduzca el código: ", 1, Integer.MAX_VALUE, sc);
-		Producto producto = buscarProducto(codigo);
-		if (producto != null) { // El producto existe
-			int stock = UtilidadesTeclado.enteroRango("Introduzca nuevo stock: ", 0, Integer.MAX_VALUE, sc);
-			producto.setStock(stock);
-		} else { // Nuevo producto
-			String descripcion = UtilidadesTeclado.cadena("Introduzca descripción: ", sc);
-			int stock = UtilidadesTeclado.enteroRango("Introduzca stock inicial: ", 0, Integer.MAX_VALUE, sc);
-			double precio = UtilidadesTeclado.doblePositivo("Introduzca precio: ", sc);
-			productos.add(new Producto(codigo, descripcion, stock, precio));
+		try {
+			Producto producto = pDAO.buscarProducto(codigo);
+			if (producto != null) { // El producto existe
+				int stock = UtilidadesTeclado.enteroRango("Introduzca nuevo stock: ", 0, Integer.MAX_VALUE, sc);
+				if (pDAO.actualizarStock(codigo, stock)) {
+					System.out.println("Stock modificado correctamente");
+				} else {
+					System.out.println("Hubo un problema al actualizar el stock");
+				}
+				
+			} else { // Nuevo producto
+				String descripcion = UtilidadesTeclado.cadena("Introduzca descripción: ", sc);
+				int stock = UtilidadesTeclado.enteroRango("Introduzca stock inicial: ", 0, Integer.MAX_VALUE, sc);
+				double precio = UtilidadesTeclado.doblePositivo("Introduzca precio: ", sc);
+				if (pDAO.insertar(new Producto(codigo, descripcion, stock, precio))) {
+					System.out.println("Producto creado correctamente");
+				} else {
+					System.out.println("Error al crear el producto");
+				}
+			}
+		} catch (SQLException e) {
+			System.out.println("Error al acceder a la DB: " + e.getMessage());
 		}
 	}
 
@@ -286,21 +297,25 @@ public class CarniceriaManolo {
 
 	public static void agregarProducto() {
 		int codigo = UtilidadesTeclado.enteroRango("Introduzca código: ", 1, Integer.MAX_VALUE, sc);
-		Producto p = buscarProducto(codigo);
-		if (p != null) {
-			int cantidad = UtilidadesTeclado.enteroRango("Introduzca cantidad: ", 1, Integer.MAX_VALUE, sc);
-			if (cantidad <= p.getStock()) {
-				if (usuario instanceof Cliente) {
-					((Cliente) usuario).agregarProducto(p, cantidad);
-					System.out.println("Producto agregado correctamente.");
+		try {
+			Producto p = pDAO.buscarProducto(codigo);
+			if (p != null) {
+				int cantidad = UtilidadesTeclado.enteroRango("Introduzca cantidad: ", 1, Integer.MAX_VALUE, sc);
+				if (cantidad <= p.getStock()) {
+					if (usuario instanceof Cliente) {
+						((Cliente) usuario).agregarProducto(p, cantidad);
+						System.out.println("Producto agregado correctamente.");
+					} else {
+						System.out.println("Perfil incorrecto.");
+					}
 				} else {
-					System.out.println("Perfil incorrecto.");
+					System.out.printf("Stock insuficiente (%d unidades disponibles).\n", p.getStock());
 				}
 			} else {
-				System.out.printf("Stock insuficiente (%d unidades disponibles).\n", p.getStock());
+				System.out.println("Producto no encontrado.");
 			}
-		} else {
-			System.out.println("Producto no encontrado.");
+		} catch (SQLException e) {
+			System.out.println("Error al acceder a la DB: " + e.getMessage());
 		}
 	}
 
@@ -312,40 +327,13 @@ public class CarniceriaManolo {
 				System.out.println("El carrito está vacío");
 				return;
 			}
-
 			double totalTicket = 0.0;
-
-			// Iteramos sobre el carrito de copias defensivas
-			for (Map.Entry<Producto, Integer> elemento : carrito.entrySet()) {
-				Producto productoCarro = elemento.getKey();
-				int cantidad = elemento.getValue();
-
-				// Buscamos el producto en la lista de productos mediante el código
-				Producto productoTienda = buscarProducto(productoCarro.getCodigo());
-
-				if (productoTienda == null) {
-					System.out.printf("El producto %s ya no existe en el almacén. No se procesa.\n",
-							productoCarro.getDescripcion());
-				} else {
-
-					// Comprobamos el actual stock del producto en la tienda
-					if (productoTienda.getStock() < cantidad) {
-						System.out.printf("Stock insuficiente para %s (Disponible: %d). No se procesa.\n",
-								productoTienda.getDescripcion(), productoTienda.getStock());
-					} else {
-						// Modificamos el stock en el producto en la tienda
-						productoTienda.setStock(productoTienda.getStock() - cantidad);
-
-						// Calculamos subtotal del producto actual
-						double subtotal = productoTienda.getPrecio() * cantidad;
-						totalTicket += subtotal;
-
-						System.out.printf("%s: %d unidades - %.2f €\n", productoTienda.getDescripcion(), cantidad,
-								subtotal);
-					}
-				}
+			try {
+			totalTicket = pDAO.procesarCompra(carrito);
+			} catch (SQLException e) {
+				System.out.println("Error al acceder a la DB: " + e.getMessage());
 			}
-
+			
 			// Si se compró algo, aplicamos los cambios globales
 			if (totalTicket > 0) {
 				System.out.printf("Total de la compra: %.2f €\n", totalTicket);
@@ -365,7 +353,6 @@ public class CarniceriaManolo {
 				ObjectOutputStream oosP = new ObjectOutputStream(new FileOutputStream(FILE_PRODUCTOS))) {
 			bw.write(Double.toString(gananciaTotal));
 			oosU.writeObject(usuarios);
-			oosP.writeObject(productos);
 		} catch (IOException e) {
 			System.out.println("Error al salvar la información: " + e.getMessage());
 		}
